@@ -26,7 +26,7 @@ function Post() {
         { commentBody: newComment, PostId: id },
         {
           headers: {
-            accessToken: sessionStorage.getItem('accessToken'),
+            accessToken: localStorage.getItem('accessToken'),
           },
         }
       )
