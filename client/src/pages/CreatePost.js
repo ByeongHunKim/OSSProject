@@ -2,49 +2,54 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function CreatePost() {
-  const initialvalues = {
+  let history = useHistory();
+
+  const initialValues = {
     title: '',
     postText: '',
     username: '',
   };
 
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required('제목을 입력하세요'),
-    postText: Yup.string().required('내용을 입력하세요'),
-    username: Yup.string().min(3).max(15).required('사용자 이름을 입력하세요'),
+    title: Yup.string().required('제목을 입력해야만 합니다'),
+    postText: Yup.string().required('내용을 입력해야만 합니다.'),
+    username: Yup.string().min(3).max(15).required('이름을 입력해야만 합니다.'),
   });
 
   const onSubmit = data => {
+    // console.log(data);
     axios.post('http://localhost:3001/posts', data).then(response => {
-      console.log('it worked');
+      history.push('/');
     });
   };
+
   return (
-    <div className="createpostPage">
-      <Formik initialValues={initialvalues} onSubmit={onSubmit} validationSchema={validationSchema}>
+    <div className="createPostPage">
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
         <Form className="formContainer">
-          <label>Title:</label>
+          <label>제목: </label>
           <ErrorMessage name="title" component="span" />
-          <Field autocomplete="off" id="inputCreatePost" name="title" placeholder="(Ex. Title..)" />
-          <label>Post:</label>
+          <Field autoComplete="off" id="inputCreatePost" name="title" placeholder="(Ex. 제목..)" />
+          <label>내용: </label>
           <ErrorMessage name="postText" component="span" />
           <Field
-            autocomplete="off"
+            autoComplete="off"
             id="inputCreatePost"
             name="postText"
-            placeholder="(Ex. Post...)"
+            placeholder="(Ex. 게시글..)"
           />
-          <label>Username:</label>
+          <label>닉네임: </label>
           <ErrorMessage name="username" component="span" />
           <Field
-            autocomplete="off"
+            autoComplete="off"
             id="inputCreatePost"
             name="username"
-            placeholder="(Ex. 홍길동...)"
+            placeholder="(Ex. 홍길동..)"
           />
-          <button type="summit">Create Post</button>
+          <button type="summit">작성하기</button>
         </Form>
       </Formik>
     </div>
