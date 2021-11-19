@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
         res.json({ error: '올바르지 않은 비밀번호입니다' });
       } else {
         const accessToken = sign({ username: user.username, id: user.id }, 'importantsecret');
-        res.json(accessToken);
+        res.json({ token: accessToken, username: username, id: user.id });
       }
     });
   }

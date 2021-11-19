@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({ username: '', id: 0, status: false });
 
   useEffect(() => {
     axios
@@ -21,12 +21,17 @@ function App() {
       })
       .then(response => {
         if (response.data.error) {
-          setAuthState(false);
+          setAuthState({ ...authState, status: false });
         } else {
-          setAuthState(true);
+          setAuthState({ username: response.data.username, id: response.data.id, status: true });
         }
       });
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    setAuthState({ username: '', id: 0, status: false });
+  };
 
   return (
     <div className="App">
@@ -35,12 +40,15 @@ function App() {
           <div className="navbar">
             <Link to="/">홈</Link>
             <Link to="/createpost">새 글 작성</Link>
-            {!authState && (
+            {!authState.status ? (
               <>
                 <Link to="/login">로그인</Link>
                 <Link to="/registration">회원가입</Link>
               </>
+            ) : (
+              <button onClick={logout}> 로그아웃 </button>
             )}
+            <h1>{authState.username}</h1>
           </div>
           <Switch>
             <Route path="/" exact component={Home} />

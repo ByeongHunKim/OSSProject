@@ -117,6 +117,12 @@ span {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.navbar button {
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+}
+
 .navbar a {
   margin-left: 20px;
   text-decoration: none;
