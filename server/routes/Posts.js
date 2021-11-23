@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Posts } = require('../models');
+const { Posts, Likes } = require('../models');
 
 router.get('/byId/:id', async (req, res) => {
   const id = req.params.id;
@@ -9,7 +9,7 @@ router.get('/byId/:id', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const listOfPosts = await Posts.findAll();
+  const listOfPosts = await Posts.findAll({ include: [Likes] });
   res.json(listOfPosts);
 });
 
