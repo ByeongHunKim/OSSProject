@@ -526,3 +526,94 @@ router.get('/byId/:id', async (req, res) => {
  - when i clicked button?
  ![](https://images.velog.io/images/hunsm4n/post/3a8d498b-8db0-4e76-98cb-833042a84dc2/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.09.37.png)
  - redirect us to the 홈 page 
+
+# [6]
+
+# In Server folder
+## I'm going to create another Table which is going to store that comment section
+- make `Comments.js` file `in models folder` (Commnets Table in TutorialDB)
+- copy `Posts.js's code` and paste all of this in `Commnets.js`
+> The only thing that right now I should add to comments will be just the actual comment body.
+![](https://images.velog.io/images/hunsm4n/post/9c7ad017-f200-4661-afd1-cf9df8620061/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.54.18.png)
+
+- and check in DB
+![](https://images.velog.io/images/hunsm4n/post/f5272ff1-3595-4505-863b-d2c6dcc86a84/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.57.41.png)
+- there are Comments, and Posts table. and Comments table has only commentbody. Like I coded in VSCode
+
+# Posts.js (Server)
+- make code for associate with Comments tabel
+```js
+Posts.associate = models => {
+    Posts.hasMany(models.Comments, {
+      onDelete: 'cascade',
+    });
+  };
+```
+- drop the Comments tabel and then refresh VsCode,WorkBench
+![](https://images.velog.io/images/hunsm4n/post/7172547c-7d20-4163-ab13-76dd3dd4302b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.04.56.png)
+   - associate a comment to a post i am just going to add the id for the post which is `id` from Post Table
+   
+## creating routes or endpoints are deal with comments
+- make a `Comments.js` in route folder (server)
+- import `Posts.js ` 's statements at the top
+```js
+const express = require('express');
+const router = express.Router();
+
+const { Comments } = require('../models'); 
+// this is used to deal with the DB related to comments
+
+module.exports = router;
+// in order to make this router work, 
+we need to export this at the bottom
+because we need to export the router
+containing all the endpoints that I'm going to
+create related to this route
+```
+
+## index.js (server)
+- inside of this folder so that in our index.js which is the file that like is the entry point of our server , I have to grab this route over here at the top 
+
+![](https://images.velog.io/images/hunsm4n/post/146e63df-b280-48ac-bb9f-91970a3e9894/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.18.28.png)
+- and then just apply new Router (Comments)
+```js
+const commentsRouter = require('./routes/Comments');
+app.use('/comments', commentsRouter);
+```
+![](https://images.velog.io/images/hunsm4n/post/9b97267e-9a8e-471c-aa9b-474d4a31e261/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.23.12.png)
+- now I have my comments route working in my application
+## create endpoints (Comments.js) server
+- `./routes/Comments`
+- I want to grab only the comments related to specific id. But not the id for the comments . **the id for the post**
+- put some codes 
+```js
+router.get('/:postId', async (req, res) => {
+  const postId = req.params.postId;
+  const comments = await Comments.findAll({ where: { PostId: postId } });
+  res.json(comments);
+});
+```
+### test in Postman
+![](https://images.velog.io/images/hunsm4n/post/e6df0705-4348-46c3-8fb1-1297c54ae828/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.34.26.png)
+
+- now, it sends an empty array but when I add more comments, it should return every single comments that exist for that specific post 
+
+### for make comments as post request
+- send a body containing the text that is going to represent the comment , and also the postId that comment is related to.
+- grab object that im going to send through the body by saying (`const comment = req.body`), 
+- accessing the comments model, and im going to create a new comment. `await Comments.create(comment);`
+- and at the end i can just return `res.json(comment)`
+- this is visual representation that this is working
+![](https://images.velog.io/images/hunsm4n/post/c0af5f56-8cbd-4a9f-949b-d3c1d4ee3d8b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.44.19.png)
+
+### post request in Postman
+![](https://images.velog.io/images/hunsm4n/post/cda20744-a474-4fdc-ac83-e5cf65ac95ad/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.53.50.png)
+- it returned my body which is exactly what i wrote
+* but, to get any confirmation go to comment table and check whether there is new comment or not
+
+- there is new comment what i send in Postman
+![](https://images.velog.io/images/hunsm4n/post/aad57e7e-5e26-47a3-bcc1-7834431acecc/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.53.43.png)
+
+### get request after post request
+![](https://images.velog.io/images/hunsm4n/post/aa3e4521-822c-469b-92af-d3b35be99189/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.56.04.png)
+   
