@@ -110,3 +110,119 @@ router.get('/', async (req, res) => {
 ![](https://images.velog.io/images/hunsm4n/post/9566f8ca-530b-449b-8512-3128160cf74e/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-13%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.05.35.png)
 ### result in Postman
 ![](https://images.velog.io/images/hunsm4n/post/a01d0d4d-eb5b-4c0a-b65f-090ddda08364/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-13%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.05.26.png)
+
+# [3]
+
+# Client
+- `cd client`
+- in client folder, `npx create-react-app .`
+- when the download is finished , 
+![](https://images.velog.io/images/hunsm4n/post/5fdf377e-0b6a-458a-980a-119f63723926/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.38.25.png)
+- `npm start`
+
+## in src folder
+- delete `App.test.js, index.css, logo.svg, setupTests.js`![](https://images.velog.io/images/hunsm4n/post/4d59d327-610f-4352-bbc7-96c471bf9c77/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.41.50.png)
+
+## Let's organize what's written App.css and App.js
+- in `App.css`
+- ![](https://images.velog.io/images/hunsm4n/post/cc0c58fa-e6c2-4994-ae12-87d539afd3c1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.44.43.png)
+
+- delete `import './index.css;' in `index.js``and in `App.js`
+![](https://images.velog.io/images/hunsm4n/post/f41d549f-753d-48ad-9c88-521b94869f64/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.47.44.png)
+
+- then when u refresh the page, it will be empty page
+![](https://images.velog.io/images/hunsm4n/post/01b9758f-3c55-4bed-8888-14e8e23c3376/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.48.10.png)
+
+## install Axios
+- in client folder, `npm install axios`
+
+## App.js 
+- `import axios from 'axios';`
+- `import { useEffect } from 'react';`
+- and add some codes in App function.
+![](https://images.velog.io/images/hunsm4n/post/a62f53f8-b7c2-43e2-84e6-2383a07a1259/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.14.42.png)
+
+## server folder , and install cors
+- and change directory to server folder
+-  first, we have to run `mysql.server start` in terminal and in server folder, `npm start` 
+- and `npm install cors` , add code(`const cors = require('cors'); , and for useing middleware, app.use(cors());`) in `index.js (server folder)`
+- when server is running, go to `http://localhost:3001/posts`
+![](https://images.velog.io/images/hunsm4n/post/79f26c29-80b9-41dd-9020-f7c1b03d1d2c/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.07.15.png)
+
+- and we should inspect `console.log(response)` what we wrote in `App.js` from Client folder.
+![](https://images.velog.io/images/hunsm4n/post/bd13ca5c-74c5-4683-909e-e1b12de9bd78/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.16.38.png)
+- From this picture, we can see that the api request was successful.
+- if we want to see datas from DB, add `.data` in `console.log(response.data)`
+- then you can see datas from TutorialDB
+![](https://images.velog.io/images/hunsm4n/post/092d72ad-ec1d-4500-9d19-832699a4c1c6/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.19.46.png)
+
+## for display our datas -> use a useState
+- in `App.js in Client` , add `useState` besides `useEffect` and make a State
+![](https://images.velog.io/images/hunsm4n/post/1f65fc24-5fbc-4215-9adc-eaf65c2c5b7a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.30.05.png)
+-in page, 
+![](https://images.velog.io/images/hunsm4n/post/24d5b95a-b269-461f-88eb-5e5495c69d6d/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.30.39.png)
+## edit in App.css (Client)
+
+```js
+.App {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.post {
+  width: 400px;
+  height: 300px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  border: 1px solid lightgray;
+  font-family: Arial, Helvetica, sans-serif;
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.post:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  cursor: pointer;
+}
+
+.post .title {
+  flex: 20%;
+  border-bottom: 1px solid lightgray;
+  background-color: dodgerblue;
+  display: grid;
+  place-content: center;
+  color: white;
+}
+
+.post .body {
+  flex: 60%;
+  display: grid;
+  place-content: center;
+}
+
+.post .footer {
+  flex: 20%;
+  border-top: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  background-color: dodgerblue;
+  color: white;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+```
+
+- in page
+![](https://images.velog.io/images/hunsm4n/post/5c157549-1c39-4e9d-93d0-56d875597691/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.48.26.png)
