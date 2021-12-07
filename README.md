@@ -226,3 +226,166 @@ body {
 
 - in page
 ![](https://images.velog.io/images/hunsm4n/post/5c157549-1c39-4e9d-93d0-56d875597691/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%201.48.26.png)
+
+#[4]
+
+# Client 
+- cd Client folder
+   - `npm install react-router-dom`
+   - and add `pages` folder in `src` folder
+## in Pages folder
+- make `Home.js` 
+### add a extention 
+![](https://images.velog.io/images/hunsm4n/post/d7a30754-f74f-4afe-b93b-b00c874c78f7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%204.49.35.png)
+
+## Home.js
+- after install that extension , 
+   - try to `rfce` in `Home.js` 
+   ![](https://images.velog.io/images/hunsm4n/post/01f5c1c1-90f3-4524-9f81-55fd91b2896a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%204.51.24.png)
+   - then we can make a code easier than before.
+   ![](https://images.velog.io/images/hunsm4n/post/1a395ca6-b501-41ce-98e0-85f6d7cd3993/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%204.51.44.png)
+
+
+- copy every codes from `App.js` 
+![](https://images.velog.io/images/hunsm4n/post/3ce5b983-5c81-4453-9f37-75e626d27b0b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%204.56.44.png)
+   
+- and make it empty
+![](https://images.velog.io/images/hunsm4n/post/d263a0fc-13b8-4744-a120-f96b968541e1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%204.56.37.png)
+
+# App.js (Client)
+- `import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';`
+-  `import Home from './pages/Home';`
+- and try to check Client page after `npm start` in server folder
+![](https://images.velog.io/images/hunsm4n/post/ea4ac658-51b8-498d-bd04-ba5960862e39/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.13.37.png)
+
+# add a CreatePost.js in pages folder
+- `rfce`
+   - make a code between div tag
+   ![](https://images.velog.io/images/hunsm4n/post/8487c331-aaed-48a5-a4f8-ac22af8dc051/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.20.22.png)
+* and add some codes in `App.js` 
+   - `import CreatePost from './pages/CreatePost';`
+   - `<Route path="/createpost" exact component={CreatePost} />`
+   ![](https://images.velog.io/images/hunsm4n/post/eb35b02f-106d-40a3-a841-fd68a851db61/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.21.28.png)
+## in /createpost
+   
+![](https://images.velog.io/images/hunsm4n/post/05540fb9-f2e1-40b6-97ae-b5e0730d5300/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.22.23.png)
+
+## in / 
+![](https://images.velog.io/images/hunsm4n/post/c85a7fbf-d4d9-4da1-9baf-e98f13567cbb/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.23.22.png)
+
+### reason why link to CreatePost is existing every route we go to? 
+- because of `<Link to="/createpost">Create A Post</Link>` code.
+
+# use formik for make a form
+- in client folder, `npm install formik`
+
+## in CreatePost.js
+- `import { Formik, Form, Field, ErrorMessage } from 'formik';`
+- and add some codes 
+![](https://images.velog.io/images/hunsm4n/post/b376b8be-883a-495d-bba9-c222ac2e5431/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.29.54.png)
+
+## in /createpost
+![](https://images.velog.io/images/hunsm4n/post/3c0e928b-dfb4-4679-8173-e52b4f088c76/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.13.15.png)
+
+## edit on App.css (Client)
+- ![](https://images.velog.io/images/hunsm4n/post/2ca81d84-8454-48ad-b400-ae08f5f7a05c/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.25.49.png)
+
+- code  
+```js
+/* CREATE POST PAGE CSS */
+
+.createPostPage {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  height: auto;
+  padding: 20px;
+  border: 5px solid dodgerblue;
+  border-radius: 5px;
+}
+
+.formContainer #inputCreatePost {
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.formContainer button {
+  margin-top: 15px;
+  height: 40px;
+  border: none;
+  background-color: lightskyblue;
+  border-radius: 5px;
+  color: white;
+}
+
+.formContainer button:hover {
+  cursor: pointer;
+  background-color: dodgerblue;
+}
+
+span {
+  color: red;
+}
+```
+
+## install yup in Client folder
+- `npm install yup`
+
+### edit CreatePost.js
+
+![](https://images.velog.io/images/hunsm4n/post/3c7df1f7-2a0b-4b0e-979e-2949fd3eb658/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.42.16.png)
+![](https://images.velog.io/images/hunsm4n/post/8d1a68a9-e008-4df2-bcbc-014f13b991d5/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.42.21.png)
+### in /createpost
+![](https://images.velog.io/images/hunsm4n/post/8b207945-ea09-466c-a6ac-f769d756f3a8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.43.16.png)
+
+- you can check the Object in console
+
+### validation check
+![](https://images.velog.io/images/hunsm4n/post/1c570e29-997c-4231-89b9-0227293113ae/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.45.02.png)
+![](https://images.velog.io/images/hunsm4n/post/e028c9d5-22e4-4be7-b3fe-ad7625bd46c7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.45.07.png)
+![](https://images.velog.io/images/hunsm4n/post/68da3e96-7bf0-4bca-a37a-c566e484c730/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.45.16.png)
+![](https://images.velog.io/images/hunsm4n/post/769a86e7-8fea-482a-ac99-9ac92cc7a9e3/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.47.22.png)
+
+## post request in CreatePost.js
+
+- `import axios from 'axios'`
+- add this code into `onSubmit function` 
+```js
+axios.post('http://localhost:3001/posts', data).then(response => {
+      console.log('it worked');
+    });
+```
+### and check in the page
+![](https://images.velog.io/images/hunsm4n/post/90f14304-1c4e-4f57-b5d1-2b1d9ce4577f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.56.26.png)
+
+- plus , what we wrote is added on `HomePage`
+![](https://images.velog.io/images/hunsm4n/post/9b0449a3-0e48-44cf-a429-44be7f5bd1ae/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.57.20.png)
+
+- how about DB?
+   - it worked successfully
+   ![](https://images.velog.io/images/hunsm4n/post/22b882c5-6fd8-4ac7-a56c-fa33b3673cc6/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.58.28.png)
+
+### If I didnt input username? 
+- it cant be submitted
+![](https://images.velog.io/images/hunsm4n/post/aefc6bcb-f3dd-4a13-8068-5b5ca79aeb7d/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%207.00.51.png)
+- how many times i clicked button , it didnt work. 
+
+# result of CreatePost.js
+![](https://images.velog.io/images/hunsm4n/post/5bfe2017-cd26-435c-a1be-e76a009ceb13/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%207.03.01.png)
+![](https://images.velog.io/images/hunsm4n/post/e4fdcb34-ce27-4f45-9ee1-420c9762bfa0/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%207.03.10.png)
+
+
