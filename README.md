@@ -388,4 +388,141 @@ axios.post('http://localhost:3001/posts', data).then(response => {
 ![](https://images.velog.io/images/hunsm4n/post/5bfe2017-cd26-435c-a1be-e76a009ceb13/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%207.03.01.png)
 ![](https://images.velog.io/images/hunsm4n/post/e4fdcb34-ce27-4f45-9ee1-420c9762bfa0/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%207.03.10.png)
 
+# [5]
 
+# add bar in App.js(Client)
+
+```js
+<div className="navbar">
+          <Link to="/createpost">새 글 작성</Link>
+          <Link to="/">홈</Link>
+        </div>
+```
+# add codes for .navbar in App.css(Client)
+```js
+/* NAVBAR */
+
+.navbar {
+  width: 100%;
+  height: 70px;
+  background-color: dodgerblue;
+  display: flex;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+}
+
+```
+
+# add Another Route for post when I clicked just one of Posts
+
+- add `Post.js` in pages folder (Client)
+- rfce
+![](https://images.velog.io/images/hunsm4n/post/0ce537e6-4c4f-44df-bf7f-517b70ea5d56/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.12.51.png)
+
+## in App.js (Client)
+- add some codes
+```js
+import Post from './pages/Post';
+
+<div className="navbar">
+          <Link to="/">홈</Link>
+          <Link to="/createpost">새 글 작성</Link>
+        </div>
+
+<Route path="/post/:id" exact component={Post} />
+```
+![](https://images.velog.io/images/hunsm4n/post/45e63715-3dc4-4957-94c4-3811594f0fd4/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.19.40.png)
+## in page
+![](https://images.velog.io/images/hunsm4n/post/907038ca-7463-45a4-98b8-7af375c3aa63/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.15.56.png)
+
+# Home.js (Client)
+## useHistory hook
+## and add onClick event in `.post`
+* `import { useHistory } from 'react-router-dom';`
+- `let history = useHistory()`
+![](https://images.velog.io/images/hunsm4n/post/771ded29-38c8-40e0-9be0-3f0ac0224bf2/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.16.31.png)
+
+
+### when I clicked first post (which id is 1)
+![](https://images.velog.io/images/hunsm4n/post/50556fb6-a488-424d-900c-24c4906ad875/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.32.06.png)
+![](https://images.velog.io/images/hunsm4n/post/ea10a43b-d5cc-48f0-bd25-f9022911b16a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.32.13.png)
+- it is rendering 1 because i put `{id}` in `Post.js`
+![](https://images.velog.io/images/hunsm4n/post/a6c77a2f-d751-4054-a828-23737d53d337/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.33.49.png)
+
+# Post.js [1](Client)
+
+## useParams hook
+- `import { useParams } from 'react-router-dom';`
+# Post.js [2](Client)fetch the data based on id
+## for to do that, use useEffect & axios
+- `import React, { useEffect } from "react";`
+- `import axios from 'axios';`
+
+- and use useEffect
+![](https://images.velog.io/images/hunsm4n/post/0998abf0-c671-4b99-9bbe-00ea1db80f5a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.44.45.png)
+
+## in Posts.js in server folder (./route/Post.js)
+- add some codes
+```js
+router.get('/byId/:id', async (req, res) => {
+  const id = req.params.id;
+  const post = await Posts.findByPk(id);
+  res.json(post);
+});
+```
+
+## check api request in Postman
+![](https://images.velog.io/images/hunsm4n/post/91d8de88-5d92-4068-aa15-f1bc187efa20/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.13.01.png)
+
+## response in individual id page
+- code in Post.js `(./pages/Post)(Client)` 
+![](https://images.velog.io/images/hunsm4n/post/a00af0d9-4d00-43d1-9d1a-c2199f832914/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.33.48.png)
+- console
+![](https://images.velog.io/images/hunsm4n/post/a7089ace-12c0-477e-a70a-62e49036ca89/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.35.29.png)
+
+
+# Creating a state which will allow us to hold that data 
+- add `useState` 
+- `const [postObject, setPostObject] = useState({});`
+   - make a state
+- `setPostObject(response.data)`
+   - and grab a data in response
+* `return <div>{postObject.postText}</div>`
+   - we can see id:1's postText
+   ![](https://images.velog.io/images/hunsm4n/post/a04fc8d1-8229-41c8-9c59-da6a6957222e/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.43.01.png)
+   - postText rendering from page is real data from DB
+   ![](https://images.velog.io/images/hunsm4n/post/48f88a99-7133-4bed-907a-190ce8a57acc/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.43.42.png)
+   
+ ## code in Post.js 
+ - left side will be individual post
+ - right side will be comment place
+ ![](https://images.velog.io/images/hunsm4n/post/b9f79163-975d-4b1f-891a-dedc421f654e/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.56.08.png)
+ ### in page
+ - id 1
+ ![](https://images.velog.io/images/hunsm4n/post/ab6f805f-40dd-49ce-879f-d3c685faf137/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.56.38.png)
+ - id 3
+ ![](https://images.velog.io/images/hunsm4n/post/2a3b0612-b6ff-496b-8be2-0a8295c0b715/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.56.50.png)
+ 
+ # make a visual confirmation when we click Create Post button (작성완료 버튼)
+ - for now, when I clicked Create Post , I was still in the page
+ - so let's make that work how do we redirect based on if we clicked on the create post button 
+ 
+ ## in CreatePost.js (Client)
+ - `import { useHistory } from 'react-router-dom';`
+    - add useHistory
+ - `let history = useHistory();`
+    - put it at the top
+ - `history.push('/');`
+    - put it instead of console.log('IT WORKED') in `onSubmit()`
+ ### check in Page
+ - when I create a new post, it should redirect us to the 홈 which is just the slash. 
+ ![](https://images.velog.io/images/hunsm4n/post/a8e17e86-e276-4f7c-8cbe-e234584a4ad2/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.09.10.png)
+ - when i clicked button?
+ ![](https://images.velog.io/images/hunsm4n/post/3a8d498b-8db0-4e76-98cb-833042a84dc2/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-15%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.09.37.png)
+ - redirect us to the 홈 page 
