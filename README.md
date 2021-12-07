@@ -748,3 +748,83 @@ const addComment = () => {
    - so that it becomes empty
    - what happens it not only the state will update but also the value inside of the input will update which means it will clear whatever is here.
 
+# [8]
+
+# ./models/user.js
+
+## server should be stopped before edit code. After finish add some codes, run server and check UsersDB is created or not
+- ![](https://images.velog.io/images/hunsm4n/post/887f22ca-f2e1-4278-ad36-d43d6f17078f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%201.27.32.png)
+
+- check in DB
+![](https://images.velog.io/images/hunsm4n/post/6f1f67ff-42fc-4dbb-8c5c-a7528ed27697/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%201.26.52.png)
+
+# ./routes/Users.js
+- copy codes from the other one and paste here
+- make post request
+```js
+
+```
+- add Router in `index.js` (server)
+```js
+const usersRouter = require('./routes/Users');
+app.use('/auth', usersRouter);
+```
+
+# npm install bcrypt in server folder
+- and import in `./routes/User.js`
+   - `const bcrypt = require('bcrypt');`
+![](https://images.velog.io/images/hunsm4n/post/d80f7c6f-398e-4970-ab17-b6e5d97389d7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%201.39.34.png)
+# check in Postman 
+- post request
+   - `/auth`
+- post json
+```js
+{
+	"username": "husnman",
+     	"password": "hunsman1234"
+}
+```
+![](https://images.velog.io/images/hunsm4n/post/63dc5b1c-85a2-4254-a209-9a7e96085a30/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%201.42.43.png)
+-> password will be hashed
+- ![](https://images.velog.io/images/hunsm4n/post/1df5842c-188b-434d-9de8-d11516c77d03/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%201.44.38.png)
+# make post request in /login
+-  i had error bc i wrote `fineOne` so I edited to `findOne`
+![](https://images.velog.io/images/hunsm4n/post/0f4a9de6-f879-4445-8066-6df42e8cd8dc/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.01.23.png)
+- test in Postman
+   - if ID is wrong , make err, or if pw is wrong , make err
+   ![](https://images.velog.io/images/hunsm4n/post/f2ee8528-21e9-44a1-a3d7-7751208a330d/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.09.11.png)
+   ![](https://images.velog.io/images/hunsm4n/post/057fc41a-41a8-4a1e-844e-6635d16453af/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-19%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%202.09.28.png)
+
+## edit code / 9.20 Mon
+![](https://images.velog.io/images/hunsm4n/post/48f6eecf-00f6-4ebf-93e3-597a85511862/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.05.30.png)
+  
+# App.js (Client)
+- add `Link to="login" , "registration"
+
+
+# ./pages/login.js + registration.js
+# add Route path ="/login", /registration
+```js
+<Route path="/login" exact component={Login} />
+<Route path="/registration" exact component={Registration} />
+```
+
+# Login.js
+```js
+<input type="text", "password">Login, Registration</input>
+<button onClick={login}></button>
+```
+- import `useState`
+![](https://images.velog.io/images/hunsm4n/post/69765705-0660-423e-92fc-1e370f13c428/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.12.27.png)
+- `Registration.js`
+## onSubmit function 
+```js
+axios.post
+```
+- check DB when click Submit button
+![](https://images.velog.io/images/hunsm4n/post/db10bd27-9b48-4b0c-a6fd-4cffc2283a12/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.12.57.png)
+![](https://images.velog.io/images/hunsm4n/post/49ba89f8-aa08-40d6-95b4-8f6c248bd01a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.13.04.png)
+# result in Login page
+![](https://images.velog.io/images/hunsm4n/post/8da95d79-ae88-4509-a9c0-cbe83e1b4ce3/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%208.05.33.png)
+
+
