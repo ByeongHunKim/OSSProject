@@ -924,3 +924,90 @@ so i add some codes in `then()` to if there's err, alert it.
 - add this `history.push('/');` in `login function`
 
 # inspect -> application -> delete token and try again whether redirect to homepage or not
+
+# [10]
+
+# delete every rows in comment table from TutorialDB  
+![](https://images.velog.io/images/hunsm4n/post/d9518167-ac51-41ba-90b7-7a0858e44e93/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-21%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2010.17.17.png)
+
+## and add a username (.model/Comments)
+![](https://images.velog.io/images/hunsm4n/post/59d9c645-9d73-44e1-900b-4796fbfe5efa/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-21%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2010.19.50.png)
+![](https://images.velog.io/images/hunsm4n/post/122517fc-6dc7-43ca-8f0e-5ba7e76f04bd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-21%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2010.20.00.png)
+### Caution
+- i should stopped server first. `^c`
+- 1. delete all comments in Comments table
+- 2. drop the Comment table
+- 3. and edit code in `Comments.js`
+   - add `username` field
+- 4. restart server `npm start`
+- 5. check DB tables
+
+
+# AuthMiddleware.js
+- for access the username , 
+   - in `try` , 
+      - `const username = validToken.username`
+         - this is the payload the data that we stored in out token
+* why is that important because since this middleware is executed in every request, i can create request variables instead of this that are accessible in every single request which i pass middleware.
+- so if i want to create a user some sort of variable that stores the user infomation, i can say `req.user = "hunsman"`
+   - i can technically access this in every single endpoint or every single request which i pass this middleware.`(validToken)`
+   ![](https://images.velog.io/images/hunsm4n/post/5ce235b7-ed9c-43a6-a074-22e92b71192c/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.29.36.png)
+   
+## Comments.js
+- when i want to access the username whenever we make any requests, all i have to do is i have to come `server/routes/Comments.js` and in `post request` add codes
+`const username = req.user.username`. Because req.user now it's an object containing the username and the id.(`validtoken` is exactly `req.user`)
+* i used to just send comment but since i adding a new field to this object that i want to add to my TutorialDB, i dont want to pass it as just a single object anymore.
+- so adding the field username to the comment object and set it equal to username `comment.username = username`
+* comment object now has a username field which is equal to the useranme that i got from the authenticated user.
+- and now when i pass this it should create the comment in my TutorialDB with the username for the user who is logged in.
+
+### when i create comment
+
+![](https://images.velog.io/images/hunsm4n/post/e605784d-eb5b-4022-86b1-39054b91209a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.37.21.png)
+
+first comment is former comment , second one is comment after edit codes.
+
+![](https://images.velog.io/images/hunsm4n/post/2cc1ff10-2074-4998-a665-b5db89150a48/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.37.07.png)
+
+so first one doesnt have username. Besides, second one has username.
+
+# for display username at Comment section
+## Post.js (Client)
+- whenever i am displaying comments which is `line 66 in Post.js` , list mapping over here. map through every single element and i get the comment the specific comment as an object.
+* so all i have to do if i want to add the username, edit code here.
+
+![](https://images.velog.io/images/hunsm4n/post/0093a373-acc6-40cd-9608-55071ff8480c/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.55.17.png)
+- when i edit like this, 
+
+![](https://images.velog.io/images/hunsm4n/post/4a640c2f-8170-46fb-99ec-26c8cad4dc1b/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.55.50.png)
+
+- there is username
+
+## Problem 1
+
+- when i added third comment, it didnt display a username![](https://images.velog.io/images/hunsm4n/post/ba0dccbf-fcfb-46e8-88c2-38f19f2bc3f0/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.57.24.png)
+
+- but when i refreshed the page, it worked. 
+![](https://images.velog.io/images/hunsm4n/post/389b17aa-0b53-49db-a94a-f84a12e4388f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.58.45.png)
+
+- why is happening? because of optimistic rendering. so if i recall this isnt being filled by the database. this is something that i add when i write my comment.but if i refresh the page, the username will be here. 
+
+- how do i fix this?
+* the reason why that's happening is here(`Post.js line 33`) when i actually have the comment done, here just adding the comment to my page. but i dont have the username with me. 
+- technically i just have to grab the username from response.
+because in`comments route in server folder` it just returning the full comment that i created. 
+![](https://images.velog.io/images/hunsm4n/post/1f515931-cae6-4c15-8cdf-4a0dc7d67cd0/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.06.52.png)
+
+`res.json(comment)` -> this includes the comment body and it also includes the username that i added. 
+* so if i want to have access to that username, i can grab it from the response. 
+- just add a username field to the comment to add object
+
+### Post.js (Client)
+- `username: response.data.username` add this
+![](https://images.velog.io/images/hunsm4n/post/62a082f5-5600-43ad-97ba-d1275ee37dd3/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.10.55.png)
+### result
+- and now if i refresh the page and just try to add new comment, it has username automatically.
+![](https://images.velog.io/images/hunsm4n/post/363ca89c-4177-4407-82e1-1203d572cb08/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-10-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.11.51.png)
+
+
+
