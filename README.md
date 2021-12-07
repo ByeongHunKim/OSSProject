@@ -616,4 +616,135 @@ router.get('/:postId', async (req, res) => {
 
 ### get request after post request
 ![](https://images.velog.io/images/hunsm4n/post/aa3e4521-822c-469b-92af-d3b35be99189/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%206.56.04.png)
-   
+
+# [7]
+
+# build interface for Comment
+## Post.js (server)
+- edit code in `.rightSide`
+```js
+<div className="rightSide">
+        <div className="addCommentContainer">
+          <input type="text" placeholder="댓글" autoComplete="off"/>
+          <button>입력</button>
+        </div>
+        <div className="listOfComments"></div>
+```
+### why dont use formik in Comment
+- formik was something very important we had validation all the kind of stuff why aren't we using it for this well the reason is there's no necessity for it
+   - this is just an input which takes it can take literally anything.
+   - in case I want to like filter words out and now allow users to comment certain things, then do it. 
+
+### display a list of all the comments
+- how do we do that
+* similar to what I did previously, i made an api request that our api that is executed immediately when my page renders which is something i did by using useEffect for to get the data for specific post.
+### useEffect
+- similar to that i tried before, make another api request which is going to be to the same. but the route is different
+```js
+axios.get(`http://localhost:3001/comments/${id}`).then(response => {
+      setComments(response.data);
+  		// data will be a list of comments
+    });
+```
+- this should return the list of all the comments related to specific post.
+### useState
+- so now that I got data from the response and I need to deal somehow 
+- Create a state at the top
+- `const [newComment, setNewComment] = useState('');`
+
+
+### .listOfcomment
+- when this is done, I should able to access this list(comments) and map through each element to display the comment
+
+```js
+ <div className="listOfComments">
+          {comments.map((comment, key) => {
+            return (
+              <div key={key} className="comment">
+              	// if u want to use the key as well bc, react
+				can gives us some error if we dont use it 
+                or some warnings you can just do something
+                like this.
+                {comment.commentBody}
+				// commentBody is from Comments Table
+              </div>
+            );
+          })}
+        </div>
+```
+![](https://images.velog.io/images/hunsm4n/post/4e182f40-90ac-49d6-997f-7aa4ea3bfc98/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.48.45.png)
+
+#### Error
+![](https://images.velog.io/images/hunsm4n/post/0b2acaec-7c2b-4feb-87e5-857a9a8bf955/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.14.26.png)
+![](https://images.velog.io/images/hunsm4n/post/1dd1431f-5809-4d42-b93f-d06b152551ab/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.13.59.png)
+#### Error solving process
+- the reason why i got error is 
+ that i need to account is the fact that in our useEffect , i didnt pass in an array which was a mistake. we need to pass this dependency array so that it wont be calling the same api requests every second. bc what happens is useEffect will run every time there's a differnce like any changes in my state of application, or it will change depending on each state that i put over here.
+* if i dont put any states it will basically just run once which is what i want i just want it to run immediately when the page renders.
+- if dont do that, it's probably going to break my website. bc it's going to make a lot of api requests. 
+
+![](https://images.velog.io/images/hunsm4n/post/6f4cdbc9-7311-43f0-ae41-87817ec98ccf/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.35.24.png)
+- add empty arr for many request.
+
+#### after css (.rightSide)
+![](https://images.velog.io/images/hunsm4n/post/c1a9382f-1b17-46b0-980e-3357803d7cdf/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.52.12.png)
+
+# router 
+- recall in my `comments route in server` , it has endpoint called which is a post request which basically just grabs a comment which takes in a postId and the comment body and it just creates and adds it to the TutorialDB
+- need to make a request to `router.post("/")` 
+
+#### to do that (in ./src/pages/Post.js) client
+- create a function that is going to be whenever click on the 입력 button 
+```js
+const addComment = () => {
+    axios
+      .post('http://localhost:3001/posts', { commentBody: newComment, PostId: id })
+  //id is already the value for postId that i got from the params
+  };
+```
+- containing two pieces of infomation that I need
+- it's an object that contains a commentBody, and PostId 
+- basically for the commentBody what im going to put is the value that I get from the input from `.rightSide .addCommentContainer` 
+- but need to make state first
+   - `const [newComment, setNewComment] = useState('');`
+* and add onChange event that basically will be called every single time there's any changes to my input which means whenever i am writing on my input, and im just going to pass an anonymous function in side of here, and whenever there's changes im going to grab the event from the input and just `setNewComment()` (setNewComment State) to be equal to `event.target.value`
+- it's a way to out of how i can grab values directly from inputs and set them to a state and just use them later
+- `.then(response => {
+        console.log("comment added!")
+      });`
+      - have to finish request by holding the promise, so im gonna grab the response and `console.log("comment added!")` 
+ ![](https://images.velog.io/images/hunsm4n/post/2977f6a9-1984-4bfa-bbfc-5424b75a5f05/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-16%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.30.44.png)
+ - when i click on the button, i want to call `addComment` function.
+    - `<button onClick={addComment}>입력</button>`
+ - it should work. 
+ 
+### when click the 입력 button, automatically appear down without freshing page
+- optimistic update which basically means that im going to assume the api request worked in the since that the api request is done, im assumming that it actually was the data was sent to the DB and it it is in the DB.
+- updating the list of `comments state` 
+   - inside of `addComment` , intead of console.log , 
+   `setComments([...comments, commentToAdd])`
+      - `...comments` previous list of comments
+      - `commentToAdd` new Comment 
+   - this format is called array destructuring. just grabbing the previous elements in the array. and jusy adding a new element 
+   - however each comment is an object containing like PostId, and a commentBody. 
+   - add `const commentToAdd = { commentBody: newComment };`
+### clear input area when we click the button
+- even after we add the comment it's still there.
+![](https://images.velog.io/images/hunsm4n/post/567903b4-8e54-41d4-92f2-7dd6faac2d90/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-17%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.10.46.png)
+#### in input (Post.js) 
+- add `value={newComment}`
+   - give a value to it and the value to it will be newComment.
+   - and value is just whatever appears in my input
+   - for example, `value="hi"`![](https://images.velog.io/images/hunsm4n/post/dbc1f301-7c47-42c6-a2d5-a931f9cfad77/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-17%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.14.24.png)
+   - the input should start with hi
+   - if i set this `newComment` , it doesnt matter it wont make any changes  
+   - im just updating whatever i m writting on the input and just putting that value over here. so why would that be important
+   - `setNewComment('');`
+      - after i add the comment to my DB after i add it to my list, i could just set `setNewComment('');` 
+      - removing the value that currently exists
+   ![](https://images.velog.io/images/hunsm4n/post/43217c75-a15e-4a7e-b2a0-1f27241ff570/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-17%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.29.12.png)
+   - after i clicked button,
+   ![](https://images.velog.io/images/hunsm4n/post/3ada2730-854e-408e-8a24-018ef86685ae/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-17%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%2012.29.18.png)
+   - so that it becomes empty
+   - what happens it not only the state will update but also the value inside of the input will update which means it will clear whatever is here.
+
