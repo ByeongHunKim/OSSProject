@@ -827,4 +827,100 @@ axios.post
 # result in Login page
 ![](https://images.velog.io/images/hunsm4n/post/8da95d79-ae88-4509-a9c0-cbe83e1b4ce3/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%208.05.33.png)
 
+# [9]
 
+# App.css (for login page)
+- before 
+![](https://images.velog.io/images/hunsm4n/post/a2689056-9cce-4035-8217-73e0fad74bca/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%208.58.59.png)
+- after
+![](https://images.velog.io/images/hunsm4n/post/550ee784-433c-4147-be3f-f1e596b9425f/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.08.09.png)
+
+# npm install jsonwebtoken in server folder
+![](https://images.velog.io/images/hunsm4n/post/9e4da599-dcb7-4817-b3f1-818c0ca1a91c/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%208.57.19.png)
+
+# server/routes/User.js
+- `import jsonwebtoken`
+   - `const { sign } = require('jsonwebtoken');`
+## post request. login , use accessToken
+![](https://images.velog.io/images/hunsm4n/post/d8b5026d-b3fb-4608-83a1-dccb07500c9d/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.19.25.png)
+
+
+# inspect/network/response & application
+- response
+![](https://images.velog.io/images/hunsm4n/post/7a4f44d4-a182-4c89-8a67-6e3d55117d6d/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.18.05.png)
+
+- application
+![](https://images.velog.io/images/hunsm4n/post/91425e3f-d2e8-4424-8701-b9ca3f970bb1/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.20.52.png)
+- we can check the token
+
+- if I input none user info, 
+![](https://images.velog.io/images/hunsm4n/post/bf14de12-5959-4e06-a4ed-6c86ed0a5da9/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.27.58.png)
+# Login.js (client)
+- in login function
+![](https://images.velog.io/images/hunsm4n/post/ea98798a-7cbd-4de2-8712-41af9a0d3fcd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%209.34.03.png)
+
+# in server folder
+## for user validation 
+- check to see if the user has a correct jsonwentoken stored in their session storage.
+
+## what is the middleware
+- just a function that runs before a request and checks to see if u want to continue with the request or not.
+- create middlewares folder
+- and create `AuthMiddleware.js` file
+
+# AuthMiddleware.js
+- all i wanna to do is be able to grab the token that is sent through the front-end then validate by using jwt function called verify and im going to verify to see if it's valid if it is valid, then i want to continue with the request and send the comment add the comment to `TutorialDB / comments` if not , im going to return sort of json response in the request with some sort of error 
+
+- create `validateToken`
+   - middleware is just a function that has req, res, and next
+   - req and res is basically the same arguments that ive been using so far. they are used to get stuff from the request and send stuff back using the response
+   - next is a function that u call when u want the request to move forward. so this function will run before a request. so for example, i have my comments route.  what im going to do is im going to pass this validate middleware into `./route/Comment/post("/)`  and whenever someone makes a request to this comments endpoint , they want to first go to this function make a bunch of checks including to see if the user is authenticated it's and if the user is then , i call this next function and this is basically means is i want to continue forward with my request. so it means it will just come here(`./route/Comment/post("/)`) and do whatever which is just like creating and adding the comment to the TutorialDB / comments. However if it isnt a valid token, then i should return directly from here(`validateToken` in AuthMiddleware.js) and some sort of error to let the user know in the front-end that thet are not authenticated
+## in validateToken
+- what i want to do is i want to grab the data (token) from my front-end. 
+- to grab the token, 
+- how im going to pass this token from the front-end to back-end.
+   - im going to pass it through the headers
+      - header is just an object that exist in my request
+- to access variables that im going to pass in the headers all i have to say is 
+`req.header()` and then inside of here we pass the name of the header object that im going to pass. im not currently passing this in the front-end but im gonna to do that later so let's assume that in the front it will pass some sort of key in the headers called `accessToken` and this should have a value of the actual access token in my session storage. 
+- so what im going to do now is first of all , ask to see if there is acutally something being sent in the request.
+- because if there isnt then im basically where i know the user's not authenticated . they might have a wrong token however i will check this later.
+- right now the first thing i need to check is to see if the user is trying to make a comment , without even logging in first so to do that, let's just ask if not accessToken (`if(!accessToken)`), so if there's no accessToken if this doesn't return any accessToken i just want to return from response.json (`return res.json()`) and this json will be an object containing error and i will say like `"사용자가 로그인 되지 않았습니다."` and if the user has an `accessToken` i now need to check to see if the `accessToken` is actually valid. if they didnt just make up the string and it's pretending to that it acutually is the correct one. so to do that im going to be using a function called verify which is from `jsonwebtoken`
+   - `const { verify } = require("jsonwebtoken")`  
+* validateToken function will basically verify to see if i am correct and it will also parse back the token in the sense that i can access the values that i stored in it the payload that i starting it if i want to. but im not going to be accessing them right now.
+- all i want to worry is to try to see if it's valid.
+   - so im gonna run our `try / catch` which  is something i've to do because im going to verifing it so i can say `try / catch` and `catch` will grab any errors that occurs and in the `try` what im going to try is grab a valid token 
+
+![](https://images.velog.io/images/hunsm4n/post/26021794-d2e2-46ac-812e-8b9e4f6b6e8a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.41.08.png)
+
+
+# Comment.js
+- if i want to use `AuthMiddleware` in the comments endpoint , just have to import this. 
+   - `const { validateToken } = require('../middlewares/AuthMiddleware');`
+* and all i have to do to pass a middleware is my endpoint is just pass the name of the function right after the request and what this means is it will receive the request then go through this middleware do all the checks that if it's valid token
+![](https://images.velog.io/images/hunsm4n/post/6edc0a3d-673b-4472-bb3a-1adc15e3fc10/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.52.23.png)
+
+# Post.js (client)
+- all i wanna do is i want to pass inside of this `axios.post` im going to pass my headers.
+- pass another object which is going to be it's considerd the config object in any request and inside of it i can pass a headers object. (headers will only contain one piece of info called `accessToken`)
+
+![](https://images.velog.io/images/hunsm4n/post/ce67b5cb-c06d-4c8d-a55f-603bb85b882c/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2010.58.23.png)
+- i had a problem that i could make comment even if i didnt logged in. but after refresh the page, it's gone. 
+so i add some codes in `then()` to if there's err, alert it.
+![](https://images.velog.io/images/hunsm4n/post/833ca0db-08aa-4e8b-af23-753896f4c6cd/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.04.04.png)
+- in page 
+![](https://images.velog.io/images/hunsm4n/post/32ec9f80-3391-4838-87f9-ff55bfc70966/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.04.30.png)
+- after logged in 
+![](https://images.velog.io/images/hunsm4n/post/b860c1bb-749d-4359-95a2-7f13beed02f8/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.05.44.png)
+- comments in `TutoralDB`
+![](https://images.velog.io/images/hunsm4n/post/27547786-d473-45aa-a16a-117eaa3238cc/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-09-20%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.06.33.png)
+
+# to redirect homepage when the login is successful
+
+## Login.js
+- import useHistory
+   - `import { useHistory } from 'react-router-dom';`
+   - `let history = useHistory();`
+- add this `history.push('/');` in `login function`
+
+# inspect -> application -> delete token and try again whether redirect to homepage or not
